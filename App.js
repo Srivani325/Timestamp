@@ -1,33 +1,36 @@
 
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const PORT = 3000;
-
+app.get('/',(req,res)=>{
+  res.send("Timestamp Microservice is working);
+});
 app.get('/api/:date?', (req, res) => {
-  const { date } = req.params;
-  let parsedDate;
+  const  dateParam = req.params.date;
+  let date;
 
   // No date → use current date
-  if (!date) {
-    parsedDate = new Date();
+  if (!dateParam) {
+    date = new Date();
   }
   // If numeric UNIX timestamp
-  else if (!isNaN(date)) {
-    parsedDate = new Date(parseInt(date));
+  else if (/^\d+$/.test(dateParam) {
+    date = new Date(parseInt(dateParam));
   }
   // If ISO date string
   else {
-    parsedDate = new Date(date);
+    date = new Date(dateParam);
   }
 
   // Check for invalid date
-  if (parsedDate.toString() === 'Invalid Date') {
+  if (date.toString() === 'Invalid Date') {
     return res.json({ error: 'Invalid Date' });
   }
 
   res.json({
-    unix: parsedDate.getTime(),
-    utc: parsedDate.toUTCString()
+    unix: date.getTime(),
+    utc: date.toUTCString()
   });
 });
 
