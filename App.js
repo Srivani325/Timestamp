@@ -3,6 +3,15 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const PORT = 3000;
+app.use(cors());
+app.get('/api', (req, res) => {
+  const now = new Date();
+  res.json({
+    unix: now.getTime(),
+    utc:  now.toUTCString()
+  });
+});
+
 app.get('/',(req,res)=>{
   res.send("Timestamp Microservice is working);
 });
