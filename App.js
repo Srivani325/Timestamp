@@ -12,9 +12,7 @@ app.get('/api', (req, res) => {
   });
 });
 
-app.get('/',(req,res)=>{
-  res.send("Timestamp Microservice is working);
-});
+
 app.get('/api/:date?', (req, res) => {
   const  dateParam = req.params.date;
   let date;
